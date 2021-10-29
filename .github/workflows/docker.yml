@@ -15,4 +15,4 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Run docker.sh script
-        run: ../../actions/docker.sh
+        run: ./../../actions/docker.sh
