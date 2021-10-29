@@ -10,7 +10,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+    env: 
+      APP: ${{ github.event.repository.name }}
+      TAG: ${GITHUB_REF#refs/*/}
     steps:
       - uses: actions/checkout@v2
 
