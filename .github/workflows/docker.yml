@@ -2,21 +2,23 @@ name: Build
 
 on:
   push:
-    branches:
-      - main
     tags:
       - "**"
 
 jobs:
   build:
+    if: github.event.base_ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    env: 
+    env:
       APP: ${{ github.event.repository.name }}
-      TAG: ${GITHUB_REF#refs/*/}
     steps:
-      - uses: actions/checkout@v2
+      - uses: olegtarasov/get-tag@v2.1.1
+        id: tag
 
+      - uses: actions/checkout@v2
       - name: Run docker.sh script
+        with:
+          TAG: ${{ steps.tag.outputs.version }}
         run: |
           chmod +x ./actions/docker.sh
           ./actions/docker.sh
