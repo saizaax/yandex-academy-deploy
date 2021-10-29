@@ -15,4 +15,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Run docker.sh script
-        run: chmod +x ./actions/docker.sh
+        run: |
+          chmod +x ./actions/docker.sh
+          ./actions/docker.sh
