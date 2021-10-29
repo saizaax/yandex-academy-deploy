@@ -11,14 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP: ${{ github.event.repository.name }}
+      TAG: ${GIT_TAG_NAME}
     steps:
-      - uses: olegtarasov/get-tag@v2.1.1
-        id: tag
-
       - uses: actions/checkout@v2
+      - uses: olegtarasov/get-tag@v2.1.1
       - name: Run docker.sh script
-        with:
-          TAG: ${{ steps.tag.outputs.version }}
         run: |
           chmod +x ./actions/docker.sh
           ./actions/docker.sh
