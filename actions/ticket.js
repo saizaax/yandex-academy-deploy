@@ -1,112 +1,19 @@
-const { readFile } = require("fs/promises")
-const axios = require("axios")
-const path = require("path")
-
-const getChangelog = async () => {
-  return await readFile(path.resolve(__dirname, "..", "changelog.log"))
-}
-
-const getAuthor = async () => {
-  return await readFile(path.resolve(__dirname, "..", "author.log"))
-}
-
-const getDate = async () => {
-  return await readFile(path.resolve(__dirname, "..", "date.log"))
-}
-
-const getTests = async () => {
-  return JSON.parse(await readFile(path.resolve(__dirname, "..", "tests.json")))
-}
-
-const searchIssue = async (summary) => {
-  const data = JSON.stringify({
-    filter: {
-      summary: summary,
-      queue: process.env.TRACKER_QUEUE
-    }
-  })
-
-  const res = await axios({
-    method: "post",
-    url: "https://api.tracker.yandex.net/v2/issues/_search",
-    headers: {
-      Authorization: `OAuth ${process.env.TRACKER_TOKEN}`,
-      "X-Org-ID": `${process.env.TRACKER_ORG}`,
-      "Content-Type": "application/json"
-    },
-    data: data
-  })
-
-  return res.data
-}
-
-const createIssue = async (summary, description) => {
-  const data = JSON.stringify({
-    summary: summary,
-    queue: process.env.TRACKER_QUEUE,
-    description: description
-  })
-
-  const res = await axios({
-    method: "post",
-    url: "https://api.tracker.yandex.net/v2/issues/",
-    headers: {
-      Authorization: `OAuth ${process.env.TRACKER_TOKEN}`,
-      "X-Org-ID": `${process.env.TRACKER_ORG}`,
-      "Content-Type": "application/json"
-    },
-    data: data
-  })
-
-  return res.data
-}
-
-const updateIssue = async (id, summary, description) => {
-  const data = JSON.stringify({
-    summary: summary,
-    description: description
-  })
-
-  const res = await axios({
-    method: "patch",
-    url: `https://api.tracker.yandex.net/v2/issues/${id}`,
-    headers: {
-      Authorization: `OAuth ${process.env.TRACKER_TOKEN}`,
-      "X-Org-ID": `${process.env.TRACKER_ORG}`,
-      "Content-Type": "application/json"
-    },
-    data: data
-  })
-
-  return res.data
-}
-
-const postComment = async (id, text) => {
-  const data = JSON.stringify({
-    text: text
-  })
-
-  const res = await axios({
-    method: "post",
-    url: `https://api.tracker.yandex.net/v2/issues/${id}/comments`,
-    headers: {
-      Authorization: `OAuth ${process.env.TRACKER_TOKEN}`,
-      "X-Org-ID": `${process.env.TRACKER_ORG}`,
-      "Content-Type": "application/json"
-    },
-    data: data
-  })
-
-  return res.data
-}
+const {
+  getFileData,
+  searchIssue,
+  createIssue,
+  updateIssue,
+  postComment
+} = require("./helpers")
 
 ;(async () => {
   try {
-    const author = (await getAuthor()).toString()
-    const changelog = (await getChangelog()).toString()
-    const date = (await getDate()).toString()
-    const tests = (await getTests())?.testResults
-      ?.map((test) =>
+    const author = (await getFileData("author.log")).toString()
+    const changelog = (await getFileData("changelog.log")).toString()
+    const date = (await getFileData("date.log")).toString()
+    
+    const tests = JSON.parse(await getFileData("tests.json"))
+      ?.testResults?.map((test) =>
         test?.assertionResults?.map(
           (result) => `${result?.status.toUpperCase()} — ${result?.fullName}`
         )

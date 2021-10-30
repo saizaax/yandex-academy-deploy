@@ -1,9 +1,7 @@
-name: Build
+name: Deploy
 
 on:
   push:
-    branches:
-      - main
     tags:
       - "**"
 
@@ -40,5 +38,5 @@ jobs:
           chmod +x ./actions/docker.sh
           ./actions/docker.sh
 
-      - name: Output info
+      - name: Update yandex.tracker info
         run: npm run info
