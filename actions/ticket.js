@@ -21,18 +21,18 @@ const getTests = async () => {
   const author = (await getAuthor()).toString()
   const changelog = (await getChangelog()).toString()
   const date = (await getDate()).toString()
-  const tests = (await getTests()).testResults
-    .map((test) =>
-      test.assertionResults.map(
-        (result) => `${result.status.toUpperCase()} — ${result.fullName}`
+  const tests = (await getTests())?.testResults
+    ?.map((test) =>
+      test?.assertionResults?.map(
+        (result) => `${result?.status.toUpperCase()} — ${result?.fullName}`
       )
     )
     .flat()
     .join("\n")
 
   const result = [
-    `${process.env.REPO}:${process.env.GIT_TAG_NAME}\n`,
-    `Release date: ${date}`,
+    `${process.env.REPO}\n`,
+    `Release: ${process.env.GIT_TAG_NAME}``Release date: ${date}`,
     `Author: ${author}\n`,
     `Changelog:\n${changelog}\n`,
     `Tests:\n${tests}\n`,
