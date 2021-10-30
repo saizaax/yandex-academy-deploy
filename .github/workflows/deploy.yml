@@ -27,7 +27,9 @@ jobs:
           ./actions/meta.sh
 
       - name: Run Jest tests
-        run: npm run testOutput  
+        run: | 
+          npm ci
+          npm run testOutput  
 
       - name: Run docker.sh script
         run: |
