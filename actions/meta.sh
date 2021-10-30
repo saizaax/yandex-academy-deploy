@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-echo $(git log --pretty=format:'— %s <%cd>' `git tag --sort=-committerdate | head -1`...`git tag --sort=-committerdate | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}'`)
+firstTag=$(git tag | sort -r | head -1)
+secondTag=$(git tag | sort -r | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}')
+
+git log --pretty=format:' — %s' ${secondTag}..${firstTag} > changelog.log
 
 git log -1 --pretty=format:'%an <%ae>' > author.log
 
