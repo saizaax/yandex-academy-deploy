@@ -1,10 +1,10 @@
-FROM node:14-alpine
+FROM node:16-alpine
 
 WORKDIR /express
 
 COPY . .
 
-RUN npm i
+RUN npm ci
 
 EXPOSE 8080
 

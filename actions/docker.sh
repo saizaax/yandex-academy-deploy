@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-# echo $APP; echo $TAG; echo $PORT
-
-docker build -t $APP:$GIT_TAG_NAME .
-
-# docker run -d -p $PORT:8080 $APP:$TAG
-
-echo Build $APP:$GIT_TAG_NAME completed.
+if docker build -t $APP:$GIT_TAG_NAME . ; then
+  echo Build $APP:$GIT_TAG_NAME completed.
+else 
+  echo Build was not completed due to an error.
+fi
