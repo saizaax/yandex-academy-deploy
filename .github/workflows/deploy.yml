@@ -13,10 +13,26 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP: ${{ github.event.repository.name }}
+      REPO: ${{ github.repository }}
     steps:
       - uses: actions/checkout@v2
       - uses: olegtarasov/get-tag@v2.1.1
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      
+      - name: Run meta.sh script
+        run: |
+          chmod +wx ./actions/meta.sh
+          ./actions/meta.sh
+
+      - name: Run Jest tests
+        run: npm run testOutput  
+
       - name: Run docker.sh script
         run: |
           chmod +x ./actions/docker.sh
-          ./actions/docker.sh
+          source ./actions/docker.sh
+
+      - name: Output info
+        run: npm run info
