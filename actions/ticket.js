@@ -31,7 +31,7 @@ const getTests = async () => {
     .join("\n")
 
   const result = [
-    `${process.env.REPO}\n`,
+    `${process.env.REPO}:${process.env.GIT_TAG_NAME}\n`,
     `Release date: ${date}`,
     `Author: ${author}\n`,
     `Changelog:\n${changelog}\n`,
