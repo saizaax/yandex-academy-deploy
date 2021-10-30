@@ -34,7 +34,7 @@ jobs:
       - name: Run docker.sh script
         run: |
           chmod +x ./actions/docker.sh
-          source ./actions/docker.sh
+          ./actions/docker.sh
 
       - name: Output info
         run: npm run info
