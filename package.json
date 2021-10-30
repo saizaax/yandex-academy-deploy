@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./src/index.js",
     "test": "jest",
     "testOutput": "jest --json --outputFile=tests.json",
     "info": "node ./actions/ticket.js"
