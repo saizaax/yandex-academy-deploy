@@ -1,1 +1,5 @@
 node_modules
+date.log
+author.log
+changelog.log
+tests.json
