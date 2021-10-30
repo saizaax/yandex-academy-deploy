@@ -1,4 +1,4 @@
-describe("API Test", () => {
+describe("API", () => {
   it("Test root (/) end-point with GET request", () => {
     expect(true).toBe(true)
   })
