@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-firstTag=$(git tag | sort -r | head -1)
-secondTag=$(git tag | sort -r | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}')
+firstTag=$(git tag --sort=-committerdate | head -1)
+secondTag=$(git tag --sort=-committerdate | head -2 | tail -1)
 
 git log --pretty=format:' — %s' ${secondTag}..${firstTag} > changelog.log
 
