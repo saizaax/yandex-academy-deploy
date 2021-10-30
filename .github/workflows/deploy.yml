@@ -16,6 +16,8 @@ jobs:
       REPO: ${{ github.repository }}
     steps:
       - uses: actions/checkout@v2
+        with:  
+          fetch-depth: 0
       - uses: olegtarasov/get-tag@v2.1.1
       - uses: actions/setup-node@v2
         with:
