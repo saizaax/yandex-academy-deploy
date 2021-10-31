@@ -33,11 +33,11 @@ const {
     const result = data.join("\n")
     console.log(result)
 
-    let issueId
-    const searchResults = await searchIssue(process.env.REPO)
-
     const summary = `Release (${process.env.REPO}) v${process.env.GIT_TAG_NAME}`
     const description = `Current version ${process.env.GIT_TAG_NAME} <${date}>`
+
+    let issueId
+    const searchResults = await searchIssue(summary)
 
     if (!searchResults.length) {
       const issue = await createIssue(summary, description)
