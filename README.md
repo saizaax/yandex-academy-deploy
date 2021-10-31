@@ -1,6 +1,6 @@
 ## Express.js — GitHub Actions CI/CD
 
-### How to trigger deploy:
+### How to trigger deploy action:
 
 1. Make changes to the project
 2. Commit changes:
