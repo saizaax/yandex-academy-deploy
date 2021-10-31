@@ -34,7 +34,7 @@ const {
     console.log(result)
 
     const summary = `Release (${process.env.REPO}) v${process.env.GIT_TAG_NAME}`
-    const description = `Current version ${process.env.GIT_TAG_NAME} <${date}>`
+    const description = `Current version ${process.env.GIT_TAG_NAME} <${date}> (${process.env.COMMIT_HASH})`
 
     let issueId
     const searchResults = await searchIssue(summary)

@@ -15,6 +15,7 @@ jobs:
       TRACKER_TOKEN: ${{ secrets.TRACKER_OAUTH_TOKEN }}
       APP: ${{ github.event.repository.name }}
       REPO: ${{ github.repository }}
+      COMMIT_HASH: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v2
         with:
